@@ -21,7 +21,7 @@
 	#define IMGUI_VULKAN_DEBUG_REPORT
 #endif
 
-namespace ImGuiWrapper
+namespace ExtImGui
 {
 	static VkAllocationCallbacks*       g_Allocator = NULL;
 	static VkInstance                   g_Instance = VK_NULL_HANDLE;

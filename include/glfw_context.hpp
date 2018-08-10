@@ -4,7 +4,7 @@ struct GLFWwindow;
 
 typedef void(*GLFWResizeCallbackfn) (GLFWwindow*, int, int);
 
-namespace ImGuiWrapper
+namespace ExtImGui
 {
 	class GLFWContext
 	{

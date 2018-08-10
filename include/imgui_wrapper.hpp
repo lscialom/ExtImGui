@@ -1,19 +1,19 @@
 #pragma once
 
-#ifdef IMGUI_WRAPPER_DLL
-	#ifdef IMGUI_WRAPPER_DLL_EXPORTS
-		#define IMGUI_WRAPPER_EXPORTS __declspec(dllexport)
+#ifdef EXT_IMGUI_DLL
+	#ifdef EXT_IMGUI_DLL_EXPORTS
+		#define EXT_IMGUI_EXPORTS __declspec(dllexport)
 	#else
-		#define IMGUI_WRAPPER_EXPORTS __declspec(dllimport)
+		#define EXT_IMGUI_EXPORTS __declspec(dllimport)
 	#endif
 #else
-	#define IMGUI_WRAPPER_EXPORTS extern
+	#define EXT_IMGUI_EXPORTS extern
 #endif
 
-namespace ImGuiWrapper
+namespace ExtImGui
 {
-	IMGUI_WRAPPER_EXPORTS void Init();
-	IMGUI_WRAPPER_EXPORTS void Shutdown();
+	EXT_IMGUI_EXPORTS void Init();
+	EXT_IMGUI_EXPORTS void Shutdown();
 
-	IMGUI_WRAPPER_EXPORTS bool Update();
+	EXT_IMGUI_EXPORTS bool Update();
 }

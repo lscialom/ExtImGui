@@ -1,6 +1,6 @@
 #pragma once
 
-namespace ImGuiWrapper
+namespace ExtImGui
 {
 	class ImGuiContext
 	{

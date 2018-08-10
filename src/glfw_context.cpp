@@ -9,7 +9,7 @@
 #include "vulkan_context.hpp"
 
 
-namespace ImGuiWrapper
+namespace ExtImGui
 {
 	static bool g_ResizeWanted = false;
 	static int g_ResizeWidth = 0, g_ResizeHeight = 0;

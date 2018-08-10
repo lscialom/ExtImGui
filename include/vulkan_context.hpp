@@ -2,7 +2,7 @@
 
 #include <cstdint>
 
-namespace ImGuiWrapper
+namespace ExtImGui
 {
 	class VkContext
 	{

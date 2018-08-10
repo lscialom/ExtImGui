@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8)
-project(ImGUIWrapper CXX)
+project(ExtImGui CXX)
 
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Debug CACHE STRING "" FORCE)
@@ -56,17 +56,17 @@ include_directories(${GLFW_DIR}/deps)
 add_library(imgui_glfw_vulkan STATIC ${IMGUI_SOURCES})
 target_link_libraries(imgui_glfw_vulkan ${LIBRARIES})
 
-#imgui wrapper library
-add_definitions(-DIMGUI_WRAPPER_DLL)
+#ExtImGui library
+add_definitions(-DEXT_IMGUI_DLL)
 include_directories(${PROJECT_SOURCE_DIR}/include)
-file(GLOB IMGUI_WRAPPER_SOURCES ${PROJECT_SOURCE_DIR}/src/*.cpp)
+file(GLOB EXT_IMGUI_SRC ${PROJECT_SOURCE_DIR}/src/*.cpp)
 
-add_library(imgui_wrapper SHARED ${IMGUI_WRAPPER_SOURCES})
-target_link_libraries(imgui_wrapper imgui_glfw_vulkan)
-set_target_properties(imgui_wrapper PROPERTIES COMPILE_FLAGS "${COMPILE_FLAGS} -DIMGUI_WRAPPER_DLL_EXPORTS")
+add_library(ext_imgui SHARED ${EXT_IMGUI_SRC})
+target_link_libraries(ext_imgui imgui_glfw_vulkan)
+set_target_properties(ext_imgui PROPERTIES COMPILE_FLAGS "${COMPILE_FLAGS} -DEXT_IMGUI_DLL_EXPORTS")
 
 #executable for testing/example
 file(GLOB sources main.cpp)
 
 add_executable(TestExe ${sources})
-target_link_libraries(TestExe imgui_wrapper)
+target_link_libraries(TestExe ext_imgui)

@@ -4,7 +4,7 @@
 #include "vulkan_context.hpp"
 #include "imgui_context.hpp"
 
-namespace ImGuiWrapper
+namespace ExtImGui
 {
 	static bool g_hasQuit = false;
 

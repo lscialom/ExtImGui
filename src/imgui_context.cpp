@@ -6,7 +6,7 @@
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
 
-namespace ImGuiWrapper
+namespace ExtImGui
 {
 	void ImGuiContext::Init()
 	{

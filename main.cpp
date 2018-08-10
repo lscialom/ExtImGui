@@ -2,16 +2,16 @@
 
 int main(int, char**)
 {
-	ImGuiWrapper::Init();
+	ExtImGui::Init();
 	//ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
 	// Main loop
-	while (ImGuiWrapper::Update())
+	while (ExtImGui::Update())
 	{
 		//memcpy(&wd->ClearValue.color.float32[0], &clear_color, 4 * sizeof(float));
 	}
 
-	ImGuiWrapper::Shutdown();
+	ExtImGui::Shutdown();
 
 	return 0;
 }
