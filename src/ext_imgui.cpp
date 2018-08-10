@@ -1,4 +1,4 @@
-#include "imgui_wrapper.hpp"
+#include "ext_imgui.hpp"
 
 #include "glfw_context.hpp"
 #include "vulkan_context.hpp"
