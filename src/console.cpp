@@ -151,27 +151,14 @@ namespace ExtImGui
 			}
 		m_history.push_back(Strdup(command_line.data()));
 
-		// Process command
-		//if (Stricmp(command_line, "CLEAR") == 0)
-		//{
-		//	ClearLog();
-		//}
-		//if (Stricmp(command_line, "HELP") == 0)
-		//{
-		//	AddLog("Commands:");
-		//	for (int i = 0; i < m_commands.size(); i++)
-		//		AddLog("- %s", m_commands[i]);
-		//}
-		//else if (Stricmp(command_line, "HISTORY") == 0)
-		//{
-		//	int first = m_history.Size - 10;
-		//	for (int i = first > 0 ? first : 0; i < m_history.Size; i++)
-		//		AddLog("%3d: %s\n", i, m_history[i]);
-		//}
-		//else
-		//{
-		//	AddLog("Unknown command: '%s'\n", command_line);
-		//}
+		if (Stricmp(command_line.data(), "HELP") == 0)
+		{
+			AddLog("Commands:");
+			for (int i = 0; i < m_commands.size(); i++)
+				AddLog("- %s", m_commands[i].name.c_str());
+
+			return;
+		}
 
 		std::string command_name;
 		std::vector<std::string> args;
