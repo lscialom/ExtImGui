@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 namespace ExtImGui
 {
 	class ImGuiContext
@@ -12,5 +14,7 @@ namespace ExtImGui
 		static void Shutdown();
 
 		static void Update();
+
+		static class IObject* RegisterObject(std::unique_ptr<class IObject>&&);
 	};
 }

@@ -27,7 +27,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE "${OUTPUT_DIRECTORY}/archive")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELWITHDEBINFO "${OUTPUT_DIRECTORY}/archive")
 
 set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DVK_PROTOTYPES")
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DVK_PROTOTYPES")
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DVK_PROTOTYPES /std:c++17")
 
 # GLFW
 set(GLFW_DIR deps/glfw) # Set this to point to an up-to-date GLFW repo
@@ -59,6 +59,7 @@ target_link_libraries(imgui_glfw_vulkan ${LIBRARIES})
 #ExtImGui library
 add_definitions(-DEXT_IMGUI_DLL)
 include_directories(${PROJECT_SOURCE_DIR}/include)
+include_directories(${PROJECT_SOURCE_DIR}/src)
 file(GLOB EXT_IMGUI_SRC ${PROJECT_SOURCE_DIR}/src/*.cpp)
 
 add_library(ext_imgui SHARED ${EXT_IMGUI_SRC})

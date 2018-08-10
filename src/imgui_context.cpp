@@ -2,12 +2,16 @@
 
 #include "glfw_context.hpp"
 #include "vulkan_context.hpp"
+#include "ext_imgui.hpp"
 
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
+#include <vector>
 
 namespace ExtImGui
 {
+	static std::vector<std::unique_ptr<IObject>> g_objects;
+
 	void ImGuiContext::Init()
 	{
 		// Setup Dear ImGui binding
@@ -59,6 +63,9 @@ namespace ExtImGui
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 
+		for (auto& o : g_objects)
+			o->Update();
+
 		// 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
 		if (show_demo_window)
 			ImGui::ShowDemoWindow(&show_demo_window);
@@ -98,5 +105,11 @@ namespace ExtImGui
 
 		// Rendering
 		ImGui::Render();
+	}
+
+	IObject* ImGuiContext::RegisterObject(std::unique_ptr<IObject>&& object)
+	{
+		g_objects.emplace_back(std::move(object));
+		return g_objects.back().get();
 	}
 }

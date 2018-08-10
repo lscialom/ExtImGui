@@ -1,5 +1,7 @@
 #include "ext_imgui.hpp"
 
+#include "imgui.h"
+
 #include "glfw_context.hpp"
 #include "vulkan_context.hpp"
 #include "imgui_context.hpp"
@@ -42,5 +44,10 @@ namespace ExtImGui
 		VkContext::Update();
 
 		return true;
+	}
+
+	IObject* RegisterObject(std::unique_ptr<IObject>&& object)
+	{
+		return ImGuiContext::RegisterObject(std::move(object));
 	}
 }
