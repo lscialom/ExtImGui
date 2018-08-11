@@ -35,6 +35,9 @@ namespace ExtImGui
 
 	static ImGui_ImplVulkanH_WindowData g_WindowData;
 
+	static bool g_isMinimized = false;
+	static bool g_isSwapchainOutdated = false;
+
 	static void check_vk_result(VkResult err)
 	{
 		if (err == 0) return;
@@ -397,6 +400,24 @@ namespace ExtImGui
 
 	void VkContext::Resize(int w, int h)
 	{
+		if (w == 0 || h == 0)
+		{
+			g_isMinimized = true;
+			g_isSwapchainOutdated = true;
+
+			return;
+		}
+		else if (g_isMinimized || g_isSwapchainOutdated)
+		{
+			g_isMinimized = false;
+			g_isSwapchainOutdated = false;
+		}
+
 		ImGui_ImplVulkanH_CreateWindowDataSwapChainAndFramebuffer(g_PhysicalDevice, g_Device, &g_WindowData, g_Allocator, w, h);
+	}
+
+	bool VkContext::CanDraw()
+	{
+		return !g_isMinimized || !g_isSwapchainOutdated;
 	}
 }

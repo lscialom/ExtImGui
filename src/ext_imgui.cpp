@@ -39,9 +39,12 @@ namespace ExtImGui
 			return false;
 		}
 
-		VkContext::NewFrame();
-		ImGuiContext::Update();
-		VkContext::Update();
+		if(VkContext::CanDraw())
+		{
+			VkContext::NewFrame();
+			ImGuiContext::Update();
+			VkContext::Update();
+		}
 
 		return true;
 	}

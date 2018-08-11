@@ -22,5 +22,7 @@ namespace ExtImGui
 
 		static void NewFrame();
 		static void Resize(int w, int h);
+
+		static bool CanDraw();
 	};
 }
