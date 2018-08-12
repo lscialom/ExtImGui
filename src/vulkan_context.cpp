@@ -418,6 +418,6 @@ namespace ExtImGui
 
 	bool VkContext::CanDraw()
 	{
-		return !g_isMinimized || !g_isSwapchainOutdated;
+		return !g_isSwapchainOutdated;
 	}
 }
