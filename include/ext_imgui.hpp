@@ -73,7 +73,7 @@ namespace ExtImGui
 		m_scrollToBottom = true;
 	}
 
-	EXT_IMGUI_EXPORTS class Console : public IObject
+	class Console : public IObject
 	{
 		struct Command
 		{
