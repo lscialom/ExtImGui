@@ -45,7 +45,7 @@ int main(int, char**)
 	g_console->AddCommand("exit", quit);
 
 	// Main loop
-	while (ExtImGui::Update() && !g_exit);
+	while (!g_exit && ExtImGui::Update());
 
 	ExtImGui::Shutdown();
 
