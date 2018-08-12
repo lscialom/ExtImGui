@@ -3,10 +3,8 @@
 int main(int, char**)
 {
 	ExtImGui::Init();
-	//ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
-	ExtImGui::Console* c = ExtImGui::CreateConsole<ExtImGui::OutputField>();
-
+	ExtImGui::Console* c = ExtImGui::CreateConsole();
 	c->AddCommand( "echo", [=](const std::vector<std::string>& args)
 	{
 		std::string msg;
@@ -16,11 +14,23 @@ int main(int, char**)
 		c->AddLog("%s ", msg.c_str());
 	});
 
-	// Main loop
-	while (ExtImGui::Update())
+	c->AddCommand("add", [=](const std::vector<std::string>& args)
 	{
-		//memcpy(&wd->ClearValue.color.float32[0], &clear_color, 4 * sizeof(float));
-	}
+		if (args.empty())
+		{
+			c->AddLog("Invalid number of arguments. At least one is required.");
+			return;
+		}
+
+		uint64_t number = atoi(args[0].c_str());
+		for (uint8_t i = 1; i < args.size(); ++i)
+			number += atoi(args[i].c_str());
+
+		c->AddLog("%llu", number);
+	});
+
+	// Main loop
+	while (ExtImGui::Update());
 
 	ExtImGui::Shutdown();
 

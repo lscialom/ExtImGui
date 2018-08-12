@@ -30,16 +30,11 @@ namespace ExtImGui
 
 		memset(m_inputBuffer, 0, sizeof(m_inputBuffer));
 		m_historyPos = -1;
-		//m_commands.push_back("HELP");
-		//m_commands.push_back("HISTORY");
-		//m_commands.push_back("CLEAR");
-		//m_commands.push_back("CLASSIFY");  // "classify" is only here to provide an example of "C"+[tab] completing to "CL" and displaying matches.
-		AddLog("Welcome to Dear ImGui!");
+		//Custom hello message here
 	}
 
 	int Console::TextEditCallback(ImGuiTextEditCallbackData* data)
 	{
-		//AddLog("cursor: %d, selection: %d-%d", data->CursorPos, data->SelectionStart, data->SelectionEnd);
 		switch (data->EventFlag)
 		{
 		case ImGuiInputTextFlags_CallbackCompletion:
@@ -249,26 +244,11 @@ namespace ExtImGui
 
 		ImGui::Separator();
 
-		//ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(0, 0));
-		//static ImGuiTextFilter filter;
-		//filter.Draw("Filter (\"incl,-excl\") (\"error\")", 180);
-		//ImGui::PopStyleVar();
-		//ImGui::Separator();
-
 		m_outputField->Update();
 		
 		ImGui::Separator();
 
-		//if (m_inputField->Update() == 1)
-		//{
-		//	char buffer[256];
-		//	strcpy(buffer, m_inputField->GetBuffer());
-		//	Strtrim(buffer);
-		//	if (buffer[0])
-		//		ExecCommand(buffer);
-		//}
-
-		auto callback = [](ImGuiTextEditCallbackData* data) -> int
+		static auto callback = [](ImGuiTextEditCallbackData* data) -> int
 		{
 			Console* console = (Console*)data->UserData;
 			return console->TextEditCallback(data);
@@ -285,7 +265,6 @@ namespace ExtImGui
 			reclaim_focus = true;
 		}
 
-		// Demonstrate keeping focus on the input box
 		ImGui::SetItemDefaultFocus();
 		if (reclaim_focus)
 			ImGui::SetKeyboardFocusHere(-1); // Auto focus previous widget

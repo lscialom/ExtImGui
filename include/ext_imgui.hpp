@@ -90,6 +90,8 @@ namespace ExtImGui
 		OutputField* m_outputField;
 
 		EXT_IMGUI_EXPORTS Console(OutputField*);
+
+		int TextEditCallback(ImGuiTextEditCallbackData* data);
 	public:
 		template<typename Output>
 		friend Console* CreateConsole();
@@ -100,12 +102,10 @@ namespace ExtImGui
 		};
 
 		template<typename... Args>
-		void AddLog(const char* fmt, Args...);
+		void AddLog(const char* fmt, Args... args) { m_outputField->AddLog(fmt, args...); };
 
 		void AddCommand(std::string name, std::function<void(const std::vector<std::string>&)> function) { m_commands.push_back({ std::move(name), function }); };
 		EXT_IMGUI_EXPORTS void ExecCommand(std::string_view command_line);
-
-		int TextEditCallback(ImGuiTextEditCallbackData* data);
 
 		int Update() override;
 	};
@@ -113,21 +113,9 @@ namespace ExtImGui
 	template<typename Output = OutputField>
 	Console* CreateConsole()
 	{
-		static auto textEditCallback = [](ImGuiTextEditCallbackData* data) -> int
-		{
-			Console* console = (Console*)data->UserData;
-			return console->TextEditCallback(data);
-		};
-
 		auto rawc = new Console(new Output());
 		std::unique_ptr<Console> c(rawc);
 
 		return static_cast<Console*>(RegisterObject(std::move(c)));
 	};
-
-	template<typename... Args>
-	void Console::AddLog(const char* fmt, Args... args)
-	{
-		m_outputField->AddLog(fmt, args...);
-	}
 }
