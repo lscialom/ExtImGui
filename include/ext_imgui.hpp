@@ -54,6 +54,8 @@ namespace ExtImGui
 		template<typename... Args>
 		void AddLog(const char* fmt, Args...);
 
+		void ClearLog();
+
 		void ScrollToBottom() { m_scrollToBottom = true; };
 	};
 	
@@ -103,6 +105,8 @@ namespace ExtImGui
 
 		template<typename... Args>
 		void AddLog(const char* fmt, Args... args) { m_outputField->AddLog(fmt, args...); };
+
+		EXT_IMGUI_EXPORTS void ClearLog();
 
 		void AddCommand(std::string name, std::function<void(const std::vector<std::string>&)> function) { m_commands.push_back({ std::move(name), function }); };
 		EXT_IMGUI_EXPORTS void ExecCommand(std::string_view command_line);

@@ -33,4 +33,13 @@ namespace ExtImGui
 
 		return 0;
 	}
+
+	void OutputField::ClearLog()
+	{
+		for (int i = 0; i < m_items.Size; i++)
+			free(m_items[i]);
+
+		m_items.clear();
+		m_scrollToBottom = true;
+	}
 }

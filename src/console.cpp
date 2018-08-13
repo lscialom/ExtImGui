@@ -131,6 +131,11 @@ namespace ExtImGui
 		return 0;
 	}
 
+	void Console::ClearLog()
+	{
+		m_outputField->ClearLog();
+	}
+
 	void Console::ExecCommand(std::string_view command_line)
 	{
 		AddLog("# %s\n", command_line.data());
@@ -152,6 +157,11 @@ namespace ExtImGui
 			for (int i = 0; i < m_commands.size(); i++)
 				AddLog("- %s", m_commands[i].name.c_str());
 
+			return;
+		}
+		else if (Stricmp(command_line.data(), "CLEAR") == 0)
+		{
+			ClearLog();
 			return;
 		}
 
