@@ -1,7 +1,5 @@
 #include "ext_imgui.hpp"
 
-#include <string>
-
 namespace ExtImGui
 {
 	// Portable helpers

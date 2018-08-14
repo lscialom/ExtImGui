@@ -11,63 +11,66 @@
 
 namespace ExtImGui
 {
-	static bool g_ResizeWanted = false;
-	static int g_ResizeWidth = 0, g_ResizeHeight = 0;
-
-	static GLFWwindow* s_window = nullptr;
-
-	static void ErrorCallback(int error, const char* description)
+	namespace GLFW
 	{
-		fprintf(stderr, "Glfw Error %d: %s\n", error, description);
-	}
+		static bool g_ResizeWanted = false;
+		static int g_ResizeWidth = 0, g_ResizeHeight = 0;
 
-	static void ResizeCallback(GLFWwindow*, int w, int h)
-	{
-		g_ResizeWanted = true;
-		g_ResizeWidth = w;
-		g_ResizeHeight = h;
-	}
+		static GLFWwindow* g_window = nullptr;
 
-	GLFWResizeCallbackfn GLFWContext::GetResizeCallback()
-	{
-		return ResizeCallback;
-	}
-
-	void GLFWContext::Init()
-	{
-		// Setup window
-		glfwSetErrorCallback(ErrorCallback);
-		if (!glfwInit())
-			throw("glfw could not be initialized");
-
-		glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-		s_window = glfwCreateWindow(1280, 720, "Dear ImGui GLFW+Vulkan example", NULL, NULL);
-
-		// Setup Vulkan
-		if (!glfwVulkanSupported())
-			throw("GLFW: Vulkan Not Supported\n");
-	}
-
-	void GLFWContext::Shutdown()
-	{
-		glfwDestroyWindow(s_window);
-		glfwTerminate();
-	}
-
-	bool GLFWContext::Update()
-	{
-		glfwPollEvents();
-		if (g_ResizeWanted)
+		static void ErrorCallback(int error, const char* description)
 		{
-			VkContext::Resize(g_ResizeWidth, g_ResizeHeight);
-			g_ResizeWanted = false;
+			fprintf(stderr, "Glfw Error %d: %s\n", error, description);
 		}
 
-		return !glfwWindowShouldClose(s_window);
-	}
+		static void ResizeCallback(GLFWwindow*, int w, int h)
+		{
+			g_ResizeWanted = true;
+			g_ResizeWidth = w;
+			g_ResizeHeight = h;
+		}
 
-	GLFWwindow* GLFWContext::GetWindow()
-	{
-		return s_window;
+		GLFWResizeCallbackfn GetResizeCallback()
+		{
+			return ResizeCallback;
+		}
+
+		void Init()
+		{
+			// Setup window
+			glfwSetErrorCallback(ErrorCallback);
+			if (!glfwInit())
+				throw("glfw could not be initialized");
+
+			glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+			g_window = glfwCreateWindow(1280, 720, "Dear ImGui GLFW+Vulkan example", NULL, NULL);
+
+			// Setup Vulkan
+			if (!glfwVulkanSupported())
+				throw("GLFW: Vulkan Not Supported\n");
+		}
+
+		void Shutdown()
+		{
+			glfwDestroyWindow(g_window);
+			glfwTerminate();
+		}
+
+		bool Update()
+		{
+			glfwPollEvents();
+			if (g_ResizeWanted)
+			{
+				Vulkan::Resize(g_ResizeWidth, g_ResizeHeight);
+				g_ResizeWanted = false;
+			}
+
+			return !glfwWindowShouldClose(g_window);
+		}
+
+		GLFWwindow* GetWindow()
+		{
+			return g_window;
+		}
 	}
 }

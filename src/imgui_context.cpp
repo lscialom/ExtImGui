@@ -4,58 +4,59 @@
 #include "vulkan_context.hpp"
 #include "ext_imgui.hpp"
 
-#include <imgui.h>
 #include <imgui_impl_glfw.h>
-#include <vector>
 
 namespace ExtImGui
 {
-	static std::vector<std::unique_ptr<IObject>> g_objects;
-
-	void ImGuiContext::Init()
+	namespace ImGuiContext
 	{
-		// Setup Dear ImGui binding
-		IMGUI_CHECKVERSION();
-		ImGui::CreateContext();
-		ImGuiIO& io = ImGui::GetIO(); (void)io;
+		static std::vector<std::unique_ptr<IObject>> g_objects;
 
-		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // Enable Keyboard Controls
-		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;   // Enable Gamepad Controls
+		void Init()
+		{
+			// Setup Dear ImGui binding
+			IMGUI_CHECKVERSION();
+			ImGui::CreateContext();
+			ImGuiIO& io = ImGui::GetIO(); (void)io;
 
-		// Setup GLFW binding
-		ImGui_ImplGlfw_InitForVulkan(GLFWContext::GetWindow(), true);
+			io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;  // Enable Keyboard Controls
+																   //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;   // Enable Gamepad Controls
 
-		// Setup style
-		ImGui::StyleColorsDark();
+																   // Setup GLFW binding
+			ImGui_ImplGlfw_InitForVulkan(GLFW::GetWindow(), true);
 
-		VkContext::InitFont();
-	}
+			// Setup style
+			ImGui::StyleColorsDark();
 
-	void ImGuiContext::Shutdown()
-	{
-		ImGui_ImplGlfw_Shutdown();
-		ImGui::DestroyContext();
-	}
+			Vulkan::InitFont();
+		}
 
-	void ImGuiContext::Update()
-	{
-		static bool show_demo_window = true;
-		static bool show_another_window = false;
+		void Shutdown()
+		{
+			ImGui_ImplGlfw_Shutdown();
+			ImGui::DestroyContext();
+		}
 
-		// Start the Dear ImGui frame
-		ImGui_ImplGlfw_NewFrame();
-		ImGui::NewFrame();
+		void Update()
+		{
+			static bool show_demo_window = true;
+			static bool show_another_window = false;
 
-		for (auto& o : g_objects)
-			o->Update();
+			// Start the Dear ImGui frame
+			ImGui_ImplGlfw_NewFrame();
+			ImGui::NewFrame();
 
-		// Rendering
-		ImGui::Render();
-	}
+			for (auto& o : g_objects)
+				o->Update();
 
-	IObject* ImGuiContext::RegisterObject(std::unique_ptr<IObject>&& object)
-	{
-		g_objects.emplace_back(std::move(object));
-		return g_objects.back().get();
+			// Rendering
+			ImGui::Render();
+		}
+
+		IObject* RegisterObject(std::unique_ptr<IObject>&& object)
+		{
+			g_objects.emplace_back(std::move(object));
+			return g_objects.back().get();
+		}
 	}
 }

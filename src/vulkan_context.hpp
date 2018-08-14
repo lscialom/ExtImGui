@@ -1,28 +1,19 @@
 #pragma once
 
-#include <cstdint>
-
 namespace ExtImGui
 {
-	class VkContext
+	namespace Vulkan
 	{
-		VkContext() = delete;
-		~VkContext() = delete;
+		void InitFont();
 
-		static void SetupVulkan(const char** extensions, uint32_t extensions_count);
-		static void CleanupVulkan();
+		void Init();
+		void Shutdown();
 
-	public:
-		static void InitFont();
+		void Update();
 
-		static void Init();
-		static void Shutdown();
+		void NewFrame();
+		void Resize(int w, int h);
 
-		static void Update();
-
-		static void NewFrame();
-		static void Resize(int w, int h);
-
-		static bool CanDraw();
+		bool CanDraw();
 	};
 }

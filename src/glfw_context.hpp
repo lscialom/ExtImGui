@@ -6,18 +6,14 @@ typedef void(*GLFWResizeCallbackfn) (GLFWwindow*, int, int);
 
 namespace ExtImGui
 {
-	class GLFWContext
+	namespace GLFW
 	{
-		GLFWContext() = delete;
-		~GLFWContext() = delete;
+		void Init();
+		void Shutdown();
 
-	public:
-		static void Init();
-		static void Shutdown();
+		bool Update();
 
-		static bool Update();
-
-		static GLFWwindow* GetWindow();
-		static GLFWResizeCallbackfn GetResizeCallback();
+		GLFWwindow* GetWindow();
+		GLFWResizeCallbackfn GetResizeCallback();
 	};
 }

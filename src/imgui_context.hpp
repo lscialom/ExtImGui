@@ -2,19 +2,26 @@
 
 #include <memory>
 
+//Prohibited
+//namespace std
+//{
+//	template<class T> struct default_delete;
+//
+//	template<class T, class Deleter>
+//	class unique_ptr;
+//}
+
 namespace ExtImGui
 {
-	class ImGuiContext
+	class IObject;
+
+	namespace ImGuiContext
 	{
-		ImGuiContext() = delete;
-		~ImGuiContext() = delete;
+		void Init();
+		void Shutdown();
 
-	public:
-		static void Init();
-		static void Shutdown();
+		void Update();
 
-		static void Update();
-
-		static class IObject* RegisterObject(std::unique_ptr<class IObject>&&);
+		IObject* RegisterObject(std::unique_ptr<IObject, std::default_delete<IObject>>&&);
 	};
 }

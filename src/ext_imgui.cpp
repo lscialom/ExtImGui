@@ -1,6 +1,6 @@
 #include "ext_imgui.hpp"
 
-#include "imgui.h"
+#include <imgui.h>
 
 #include "glfw_context.hpp"
 #include "vulkan_context.hpp"
@@ -12,8 +12,8 @@ namespace ExtImGui
 
 	void Init()
 	{
-		GLFWContext::Init();
-		VkContext::Init();
+		GLFW::Init();
+		Vulkan::Init();
 		ImGuiContext::Init();
 	}
 
@@ -22,8 +22,8 @@ namespace ExtImGui
 		if (g_hasQuit)
 			return;
 
-		VkContext::Shutdown();
-		GLFWContext::Shutdown();
+		Vulkan::Shutdown();
+		GLFW::Shutdown();
 	}
 
 	bool Update()
@@ -31,7 +31,7 @@ namespace ExtImGui
 		if (g_hasQuit)
 			return false;
 
-		if (!GLFWContext::Update())
+		if (!GLFW::Update())
 		{
 			Shutdown();
 			g_hasQuit = true;
@@ -39,11 +39,11 @@ namespace ExtImGui
 			return false;
 		}
 
-		if(VkContext::CanDraw())
+		if(Vulkan::CanDraw())
 		{
-			VkContext::NewFrame();
+			Vulkan::NewFrame();
 			ImGuiContext::Update();
-			VkContext::Update();
+			Vulkan::Update();
 		}
 
 		return true;
