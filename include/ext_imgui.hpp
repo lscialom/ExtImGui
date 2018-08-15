@@ -18,7 +18,7 @@
 		#define EXT_IMGUI_EXPORTS __declspec(dllimport)
 	#endif
 #else
-	#define EXT_IMGUI_EXPORTS extern
+	#define EXT_IMGUI_EXPORTS
 #endif
 
 namespace ExtImGui
