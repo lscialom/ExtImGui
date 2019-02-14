@@ -56,6 +56,8 @@ include_directories(${GLFW_DIR}/deps)
 add_library(imgui_glfw_vulkan STATIC ${IMGUI_SOURCES})
 target_link_libraries(imgui_glfw_vulkan ${LIBRARIES})
 
+target_compile_definitions(glfw PUBLIC -D_GLFW_WNDCLASSNAME=L\"ExtImGuiWnd\")
+
 #ExtImGui library
 add_definitions(-DEXT_IMGUI_DLL)
 include_directories(${PROJECT_SOURCE_DIR}/include)

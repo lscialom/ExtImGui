@@ -36,9 +36,10 @@ static void quit(const std::vector<std::string>& args)
 
 int main(int, char**)
 {
-	ExtImGui::Init();
+	ExtImGui::Init(800, 600);
 
 	g_console = ExtImGui::CreateConsole();
+	auto perf = ExtImGui::CreatePerformancesWidget();
 
 	g_console->AddCommand(NAME(echo), echo);
 	g_console->AddCommand(NAME(add), add);

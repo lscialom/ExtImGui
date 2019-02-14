@@ -2,18 +2,18 @@
 
 struct GLFWwindow;
 
-typedef void(*GLFWResizeCallbackfn) (GLFWwindow*, int, int);
+typedef void (*GLFWResizeCallbackfn)(GLFWwindow *, int, int);
 
-namespace ExtImGui
-{
-	namespace GLFW
-	{
-		void Init();
-		void Shutdown();
+#include <cstdint>
 
-		bool Update();
+namespace ExtImGui {
+namespace GLFW {
+void Init(uint32_t resX, uint32_t resY);
+void Shutdown();
 
-		GLFWwindow* GetWindow();
-		GLFWResizeCallbackfn GetResizeCallback();
-	};
-}
+bool Update();
+
+GLFWwindow *GetWindow();
+GLFWResizeCallbackfn GetResizeCallback();
+}; // namespace GLFW
+} // namespace ExtImGui
