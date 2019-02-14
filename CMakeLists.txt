@@ -47,7 +47,7 @@ file(GLOB IMGUI_SOURCES ${IMGUI_DIR}/*.cpp)
 # Libraries
 find_library(VULKAN_LIBRARY
   NAMES vulkan vulkan-1)
-set(LIBRARIES "glfwExtImgui;${VULKAN_LIBRARY}")
+set(LIBRARIES "glfw;${VULKAN_LIBRARY}")
 
 # Use vulkan headers from glfw:
 include_directories(${GLFW_DIR}/deps)
@@ -69,5 +69,7 @@ set_target_properties(ext_imgui PROPERTIES COMPILE_FLAGS "${COMPILE_FLAGS} -DEXT
 #executable for testing/example
 file(GLOB sources main.cpp)
 
-add_executable(TestExe ${sources})
-target_link_libraries(TestExe ext_imgui)
+add_executable(ExtImGuiExample ${sources})
+target_link_libraries(ExtImGuiExample ext_imgui)
+
+set_target_properties(glfw PROPERTIES OUTPUT_NAME "glfwExtImgui")
