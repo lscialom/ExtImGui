@@ -33,6 +33,8 @@ RegisterObject(std::unique_ptr<class IObject> &&);
 
 class IObject {
 public:
+	bool open = true;
+
   virtual void PreUpdate(){};
   virtual int Update() = 0;
   virtual void PostUpdate(){};
@@ -79,7 +81,6 @@ class Console : public IObject {
     std::function<void(const std::vector<std::string> &)> function;
   };
 
-  bool m_open = true;
   char m_inputBuffer[256];
   std::vector<char *> m_history;
   int m_historyPos; // -1: new line, 0..History.Size-1 browsing history.
@@ -121,8 +122,6 @@ template <typename Output = OutputField> Console *CreateConsole() {
 
 class Performances : public IObject {
 public:
-  bool m_open = true;
-
   int Update() override;
 };
 

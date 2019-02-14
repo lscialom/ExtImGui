@@ -235,7 +235,7 @@ namespace ExtImGui
 	int Console::Update()
 	{
 		ImGui::SetNextWindowSize(ImVec2(520, 600), ImGuiCond_FirstUseEver);
-		if (!ImGui::Begin("Console", &m_open))
+		if (!ImGui::Begin("Console", &open))
 		{
 			ImGui::End();
 			return 0;
@@ -246,7 +246,7 @@ namespace ExtImGui
 		if (ImGui::BeginPopupContextItem())
 		{
 			if (ImGui::MenuItem("Close Console"))
-				m_open = false;
+				open = false;
 			ImGui::EndPopup();
 		}
 		//bool copy_to_clipboard = ImGui::SmallButton("Copy"); ImGui::SameLine();

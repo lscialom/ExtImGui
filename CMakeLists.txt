@@ -44,6 +44,8 @@ set(IMGUI_DIR deps/imgui) # Set this to point to an up-to-date ImGui repo
 include_directories(${IMGUI_DIR} ..)
 file(GLOB IMGUI_SOURCES ${IMGUI_DIR}/*.cpp)
 
+add_definitions(-DIMGUI_UNLIMITED_FRAME_RATE)
+
 # Libraries
 find_library(VULKAN_LIBRARY
   NAMES vulkan vulkan-1)
