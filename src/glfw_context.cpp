@@ -2,7 +2,7 @@
 
 #include <cstdio>          // printf, fprintf
 
-#define GLFW_INCLUDE_NONE
+#define _GLFW_WNDCLASSNAME L"ExtImGui"
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
 

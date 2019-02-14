@@ -47,7 +47,7 @@ file(GLOB IMGUI_SOURCES ${IMGUI_DIR}/*.cpp)
 # Libraries
 find_library(VULKAN_LIBRARY
   NAMES vulkan vulkan-1)
-set(LIBRARIES "glfw;${VULKAN_LIBRARY}")
+set(LIBRARIES "glfwExtImgui;${VULKAN_LIBRARY}")
 
 # Use vulkan headers from glfw:
 include_directories(${GLFW_DIR}/deps)
