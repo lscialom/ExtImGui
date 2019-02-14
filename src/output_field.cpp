@@ -1,5 +1,7 @@
 #include "ext_imgui.hpp"
 
+#include <imgui.h>
+
 namespace ExtImGui
 {
 	int OutputField::Update()
@@ -12,7 +14,7 @@ namespace ExtImGui
 
 		ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(4, 1));
 		ImVec4 col_default_text = ImGui::GetStyleColorVec4(ImGuiCol_Text);
-		for (int i = 0; i < m_items.Size; i++)
+		for (int i = 0; i < m_items.size(); i++)
 		{
 			const char* item = m_items[i];
 			ImVec4 col = col_default_text;
@@ -36,7 +38,7 @@ namespace ExtImGui
 
 	void OutputField::ClearLog()
 	{
-		for (int i = 0; i < m_items.Size; i++)
+		for (int i = 0; i < m_items.size(); i++)
 			free(m_items[i]);
 
 		m_items.clear();

@@ -4,6 +4,7 @@
 #include "vulkan_context.hpp"
 #include "ext_imgui.hpp"
 
+#include <imgui.h>
 #include <imgui_impl_glfw.h>
 
 namespace ExtImGui

@@ -1,7 +1,5 @@
 #pragma once
 
-#include <imgui.h>
-
 #include <cassert>
 #include <cctype>
 #include <memory>
@@ -20,6 +18,9 @@
 #else
 	#define EXT_IMGUI_EXPORTS
 #endif
+
+//From ImGui
+#define ARRAYSIZE(_ARR) ((int)(sizeof(_ARR)/sizeof(*_ARR)))    
 
 namespace ExtImGui
 {
@@ -42,7 +43,7 @@ namespace ExtImGui
 
 	class OutputField : public IObject
 	{
-		ImVector<char*> m_items;
+		std::vector<char*> m_items;
 		bool            m_scrollToBottom;
 
 	public:
@@ -69,8 +70,8 @@ namespace ExtImGui
 	{
 		// FIXME-OPT
 		char buf[1024];
-		snprintf(buf, IM_ARRAYSIZE(buf), fmt, args...);
-		buf[IM_ARRAYSIZE(buf) - 1] = 0;
+		snprintf(buf, ARRAYSIZE(buf), fmt, args...);
+		buf[ARRAYSIZE(buf) - 1] = 0;
 		m_items.push_back(Strdup(buf));
 		m_scrollToBottom = true;
 	}
@@ -85,7 +86,7 @@ namespace ExtImGui
 
 		bool                 m_open = true;
 		char                 m_inputBuffer[256];
-		ImVector<char*>      m_history;
+		std::vector<char*>      m_history;
 		int                  m_historyPos; // -1: new line, 0..History.Size-1 browsing history.
 		std::vector<Command> m_commands;
 
@@ -93,7 +94,7 @@ namespace ExtImGui
 
 		EXT_IMGUI_EXPORTS Console(OutputField*);
 
-		int TextEditCallback(ImGuiTextEditCallbackData* data);
+		int TextEditCallback(void* data);
 	public:
 		template<typename Output>
 		friend Console* CreateConsole();
@@ -123,3 +124,5 @@ namespace ExtImGui
 		return static_cast<Console*>(RegisterObject(std::move(c)));
 	};
 }
+
+#undef ARRAYSIZE

@@ -1,5 +1,7 @@
 #include "ext_imgui.hpp"
 
+#include <imgui.h>
+
 namespace ExtImGui
 {
 	// Portable helpers
@@ -31,8 +33,9 @@ namespace ExtImGui
 		//Custom hello message here
 	}
 
-	int Console::TextEditCallback(ImGuiTextEditCallbackData* data)
+	int Console::TextEditCallback(void* pData)
 	{
+		ImGuiTextEditCallbackData* data = (ImGuiTextEditCallbackData*)pData;
 		switch (data->EventFlag)
 		{
 		case ImGuiInputTextFlags_CallbackCompletion:
@@ -107,14 +110,14 @@ namespace ExtImGui
 			if (data->EventKey == ImGuiKey_UpArrow)
 			{
 				if (m_historyPos == -1)
-					m_historyPos = m_history.Size - 1;
+					m_historyPos = m_history.size() - 1;
 				else if (m_historyPos > 0)
 					m_historyPos--;
 			}
 			else if (data->EventKey == ImGuiKey_DownArrow)
 			{
 				if (m_historyPos != -1)
-					if (++m_historyPos >= m_history.Size)
+					if (++m_historyPos >= m_history.size())
 						m_historyPos = -1;
 			}
 
@@ -140,7 +143,7 @@ namespace ExtImGui
 
 		// Insert into history. First find match and delete it so it can be pushed to the back. This isn't trying to be smart or optimal.
 		m_historyPos = -1;
-		for (int i = m_history.Size - 1; i >= 0; i--)
+		for (int i = m_history.size() - 1; i >= 0; i--)
 			if (Stricmp(m_history[i], command_line.data()) == 0)
 			{
 				free(m_history[i]);
